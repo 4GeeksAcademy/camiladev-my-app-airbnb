@@ -1,65 +1,170 @@
-import Image from "next/image";
+"use client";
+
+import { useEffect, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
+import { CategoryFilters } from "./components/home/category-filters";
+import { Footer } from "./components/home/footer";
+import { Header } from "./components/home/header";
+import { RecommendationsSection } from "./components/home/recommendations-section";
+import { Category, Property } from "./components/home/types";
+
+const categories: Category[] = [
+  "Todas",
+  "Playa",
+  "Mansiones",
+  "Tendencias",
+  "Cabanas",
+  "Campo",
+];
+
+const seedProperties: Property[] = [
+  {
+    id: "1",
+    title: "Departamento en Piriapolis",
+    location: "Piriapolis, Maldonado",
+    category: "Playa",
+    pricePerNight: 3178,
+    rating: 4.84,
+    imageLabel: "1 / 8",
+    badge: "Favorito entre huespedes",
+  },
+  {
+    id: "2",
+    title: "Cabana en Sauce de Portezuelo",
+    location: "Punta Ballena, Maldonado",
+    category: "Cabanas",
+    pricePerNight: 1986,
+    rating: 5.0,
+    imageLabel: "1 / 6",
+  },
+  {
+    id: "3",
+    title: "Casa con jacuzzi en barrio residencial",
+    location: "Piriapolis, Uruguay",
+    category: "Tendencias",
+    pricePerNight: 2339,
+    rating: 4.53,
+    imageLabel: "1 / 16",
+  },
+  {
+    id: "4",
+    title: "Mansion frente al mar con terraza",
+    location: "Punta del Este, Maldonado",
+    category: "Mansiones",
+    pricePerNight: 9240,
+    rating: 4.9,
+    imageLabel: "1 / 12",
+    badge: "Nuevo",
+  },
+  {
+    id: "5",
+    title: "Casa de campo con fogon y vista abierta",
+    location: "Sierra de las Animas",
+    category: "Campo",
+    pricePerNight: 2860,
+    rating: 4.78,
+    imageLabel: "1 / 7",
+  },
+  {
+    id: "6",
+    title: "Loft de playa a metros de la rambla",
+    location: "Piriapolis Centro",
+    category: "Playa",
+    pricePerNight: 2640,
+    rating: 4.71,
+    imageLabel: "1 / 10",
+  },
+];
 
 export default function Home() {
+  const router = useRouter();
+  const [searchValue, setSearchValue] = useState("");
+  const [activeCategory, setActiveCategory] = useState<Category>("Todas");
+  const [loading, setLoading] = useState(true);
+  const [allProperties, setAllProperties] = useState<Property[]>([]);
+  const [visibleProperties, setVisibleProperties] = useState<Property[]>([]);
+
+  useEffect(() => {
+    setLoading(true);
+    setAllProperties([]);
+    setVisibleProperties([]);
+
+    const timer = setTimeout(() => {
+      setAllProperties(seedProperties);
+      setVisibleProperties(seedProperties);
+      setLoading(false);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  const normalizedQuery = useMemo(() => searchValue.trim().toLowerCase(), [searchValue]);
+
+  useEffect(() => {
+    const filtered = allProperties.filter((property) => {
+      const categoryMatches = activeCategory === "Todas" || property.category === activeCategory;
+      const queryMatches =
+        normalizedQuery.length === 0 ||
+        property.title.toLowerCase().includes(normalizedQuery) ||
+        property.location.toLowerCase().includes(normalizedQuery);
+
+      return categoryMatches && queryMatches;
+    });
+
+    setVisibleProperties(filtered);
+  }, [activeCategory, normalizedQuery, allProperties]);
+
+  const handleGoToCatalog = () => {
+    const params = new URLSearchParams();
+    const trimmedQuery = searchValue.trim();
+
+    if (trimmedQuery.length > 0) {
+      params.set("query", trimmedQuery);
+    }
+
+    if (activeCategory !== "Todas") {
+      params.set("category", activeCategory);
+    }
+
+    const queryString = params.toString();
+    router.push(queryString.length > 0 ? `/catalog?${queryString}` : "/catalog");
+  };
+
+  const handlePropertyClick = (property: Property) => {
+    const params = new URLSearchParams();
+    const trimmedQuery = searchValue.trim();
+
+    if (trimmedQuery.length > 0) {
+      params.set("query", trimmedQuery);
+    }
+
+    params.set("category", property.category);
+
+    router.push(`/catalog?${params.toString()}`);
+  };
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+    <div className="min-h-screen bg-zinc-50 text-zinc-900">
+      <Header query={searchValue} onQueryChange={setSearchValue} onSearch={handleGoToCatalog} />
+      <CategoryFilters
+        categories={categories}
+        activeCategory={activeCategory}
+        onSelect={setActiveCategory}
+      />
+
+      <main>
+        {loading ? (
+          <section className="mx-auto w-full max-w-6xl px-4 pb-28 pt-8 sm:px-6">
+            <div className="rounded-2xl border border-zinc-200 bg-white px-4 py-6 text-center text-sm text-zinc-600">
+              Cargando alojamientos...
+            </div>
+          </section>
+        ) : (
+          <RecommendationsSection properties={visibleProperties} onPropertyClick={handlePropertyClick} />
+        )}
       </main>
+
+      <Footer />
     </div>
   );
 }
