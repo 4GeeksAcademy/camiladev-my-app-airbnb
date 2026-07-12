@@ -29,7 +29,7 @@ export const Header = ({
   const showHomeHeader = mode === "home";
 
   return (
-    <header className="sticky top-0 z-20 border-b border-zinc-100 bg-[#f8f8f8]">
+    <header className="sticky top-0 z-20 border-b border-zinc-200 bg-zinc-100">
       <div className="mx-auto w-full max-w-6xl px-4 pt-3 sm:px-6">
         <HeaderMobileContent
           query={query}
