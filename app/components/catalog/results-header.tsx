@@ -4,7 +4,7 @@ interface ResultsHeaderProps {
   onSortOrderChange: (value: "asc" | "desc") => void;
 }
 
-export function ResultsHeader({ count, sortOrder, onSortOrderChange }: ResultsHeaderProps) {
+export const ResultsHeader = ({ count, sortOrder, onSortOrderChange }: ResultsHeaderProps) => {
   return (
     <div className="flex flex-col gap-3 rounded-2xl border border-zinc-200 bg-white p-4 sm:flex-row sm:items-center sm:justify-between">
       <p className="text-sm text-zinc-700">
@@ -27,4 +27,4 @@ export function ResultsHeader({ count, sortOrder, onSortOrderChange }: ResultsHe
       </div>
     </div>
   );
-}
+};

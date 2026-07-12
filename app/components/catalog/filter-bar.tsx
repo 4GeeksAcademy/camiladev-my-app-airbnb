@@ -4,7 +4,7 @@ interface FilterBarProps {
   onToggleFilter: (filter: string) => void;
 }
 
-export function FilterBar({ filters, activeFilters, onToggleFilter }: FilterBarProps) {
+export const FilterBar = ({ filters, activeFilters, onToggleFilter }: FilterBarProps) => {
   return (
     <div className="flex gap-2 overflow-x-auto pb-1">
       {filters.map((filter) => {
@@ -27,4 +27,4 @@ export function FilterBar({ filters, activeFilters, onToggleFilter }: FilterBarP
       })}
     </div>
   );
-}
+};

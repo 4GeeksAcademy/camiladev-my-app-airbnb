@@ -5,7 +5,7 @@ interface PropertyListProps {
   properties: Property[];
 }
 
-export function PropertyList({ properties }: PropertyListProps) {
+export const PropertyList = ({ properties }: PropertyListProps) => {
   if (properties.length === 0) {
     return (
       <div className="rounded-2xl border border-zinc-200 bg-white p-6 text-center text-sm text-zinc-600">
@@ -21,4 +21,4 @@ export function PropertyList({ properties }: PropertyListProps) {
       ))}
     </div>
   );
-}
+};

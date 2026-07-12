@@ -1,6 +1,6 @@
 import { Logo } from "./logo";
 import { SearchBar } from "./search-bar";
-import type { ReactNode } from "react";
+import { IconButton } from "./icon-button";
 
 interface HeaderProps {
   query: string;
@@ -9,19 +9,7 @@ interface HeaderProps {
   searchHref?: string;
 }
 
-function IconButton({ children, label }: { children: ReactNode; label: string }) {
-  return (
-    <button
-      type="button"
-      aria-label={label}
-      className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-zinc-200 bg-white text-zinc-700"
-    >
-      {children}
-    </button>
-  );
-}
-
-export function Header({ query, onQueryChange, onSearch, searchHref }: HeaderProps) {
+export const Header = ({ query, onQueryChange, onSearch, searchHref }: HeaderProps) => {
   return (
     <header className="sticky top-0 z-20 border-b border-zinc-100 bg-white/95 backdrop-blur">
       <div className="mx-auto flex w-full max-w-6xl items-center gap-3 px-4 py-3 sm:px-6">
@@ -65,4 +53,4 @@ export function Header({ query, onQueryChange, onSearch, searchHref }: HeaderPro
       </div>
     </header>
   );
-}
+};

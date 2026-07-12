@@ -4,7 +4,7 @@ interface StickyMapProps {
   properties: Property[];
 }
 
-export function StickyMap({ properties }: StickyMapProps) {
+export const StickyMap = ({ properties }: StickyMapProps) => {
   return (
     <aside className="h-[280px] rounded-2xl border border-zinc-300 bg-zinc-200 p-4 lg:sticky lg:top-24 lg:h-[calc(100vh-7rem)]">
       <div className="flex h-full flex-col">
@@ -26,4 +26,4 @@ export function StickyMap({ properties }: StickyMapProps) {
       </div>
     </aside>
   );
-}
+};

@@ -1,4 +1,4 @@
-export function Footer() {
+export const Footer = () => {
   const items = ["Explorar", "Favoritos", "Iniciar sesion"];
 
   return (
@@ -26,4 +26,4 @@ export function Footer() {
       </nav>
     </footer>
   );
-}
+};

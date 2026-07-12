@@ -1,4 +1,4 @@
-export function Logo() {
+export const Logo = () => {
   return (
     <div className="flex items-center gap-2 text-rose-600">
       <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-rose-100">
@@ -17,4 +17,4 @@ export function Logo() {
       <span className="hidden text-lg font-semibold tracking-tight sm:inline">airbnb</span>
     </div>
   );
-}
+};

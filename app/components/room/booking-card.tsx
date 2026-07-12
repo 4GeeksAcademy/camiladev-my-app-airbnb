@@ -8,11 +8,11 @@ interface BookingCardProps {
   maxGuests?: number;
 }
 
-export function BookingCard({
+export const BookingCard = ({
   pricePerNight,
   minGuests = 1,
   maxGuests = 8,
-}: BookingCardProps) {
+}: BookingCardProps) => {
   const [guests, setGuests] = useState(minGuests);
 
   const decrementGuests = () => {
@@ -64,4 +64,4 @@ export function BookingCard({
       </button>
     </aside>
   );
-}
+};

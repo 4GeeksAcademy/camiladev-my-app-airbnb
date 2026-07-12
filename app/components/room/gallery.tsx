@@ -6,7 +6,7 @@ interface GalleryProps {
   images: string[];
 }
 
-export function Gallery({ images }: GalleryProps) {
+export const Gallery = ({ images }: GalleryProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const currentLabel = images[currentIndex] ?? "Foto";
@@ -49,4 +49,4 @@ export function Gallery({ images }: GalleryProps) {
       </div>
     </section>
   );
-}
+};

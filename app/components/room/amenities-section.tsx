@@ -4,7 +4,7 @@ interface AmenitiesSectionProps {
   amenities: AmenityItem[];
 }
 
-export function AmenitiesSection({ amenities }: AmenitiesSectionProps) {
+export const AmenitiesSection = ({ amenities }: AmenitiesSectionProps) => {
   return (
     <section className="rounded-3xl bg-white p-5 shadow-sm ring-1 ring-zinc-100">
       <h2 className="text-xl font-semibold text-zinc-900">Servicios</h2>
@@ -20,4 +20,4 @@ export function AmenitiesSection({ amenities }: AmenitiesSectionProps) {
       </div>
     </section>
   );
-}
+};

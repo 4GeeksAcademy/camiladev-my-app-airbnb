@@ -15,7 +15,7 @@ const categoryIcon: Record<Category, string> = {
   Campo: "Ca",
 };
 
-export function CategoryFilters({ categories, activeCategory, onSelect }: CategoryFiltersProps) {
+export const CategoryFilters = ({ categories, activeCategory, onSelect }: CategoryFiltersProps) => {
   return (
     <div className="border-b border-zinc-100 bg-white">
       <div className="mx-auto flex w-full max-w-6xl gap-2 overflow-x-auto px-4 py-3 sm:px-6">
@@ -43,4 +43,4 @@ export function CategoryFilters({ categories, activeCategory, onSelect }: Catego
       </div>
     </div>
   );
-}
+};

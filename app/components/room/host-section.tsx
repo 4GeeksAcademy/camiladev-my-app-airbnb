@@ -3,7 +3,7 @@ interface HostSectionProps {
   hostYears: number;
 }
 
-export function HostSection({ hostName, hostYears }: HostSectionProps) {
+export const HostSection = ({ hostName, hostYears }: HostSectionProps) => {
   return (
     <section className="rounded-3xl bg-white p-5 shadow-sm ring-1 ring-zinc-100">
       <div className="flex items-center gap-3">
@@ -15,4 +15,4 @@ export function HostSection({ hostName, hostYears }: HostSectionProps) {
       </div>
     </section>
   );
-}
+};

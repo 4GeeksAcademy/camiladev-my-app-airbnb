@@ -5,7 +5,7 @@ interface RecommendationsSectionProps {
   properties: Property[];
 }
 
-export function RecommendationsSection({ properties }: RecommendationsSectionProps) {
+export const RecommendationsSection = ({ properties }: RecommendationsSectionProps) => {
   return (
     <section className="mx-auto w-full max-w-6xl px-4 pb-28 pt-6 sm:px-6">
       <div className="mb-4 flex items-center justify-between">
@@ -36,4 +36,4 @@ export function RecommendationsSection({ properties }: RecommendationsSectionPro
       </div>
     </section>
   );
-}
+};
