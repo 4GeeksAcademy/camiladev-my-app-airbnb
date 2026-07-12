@@ -1,20 +1,11 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { CategoryFilters } from "./components/home/category-filters";
 import { Footer } from "./components/home/footer";
 import { Header } from "./components/home/header";
+import { DEFAULT_HOME_TAB_ID, HOME_HEADER_TABS } from "./components/home/home-header-tabs";
 import { RecommendationsSection } from "./components/home/recommendations-section";
-import { Category, Property } from "./components/home/types";
-
-const categories: Category[] = [
-  "Todas",
-  "Playa",
-  "Mansiones",
-  "Tendencias",
-  "Cabanas",
-  "Campo",
-];
+import { Property } from "./components/home/types";
 
 const seedProperties: Property[] = [
   {
@@ -77,7 +68,7 @@ const seedProperties: Property[] = [
 
 export default function Home() {
   const [searchValue, setSearchValue] = useState("");
-  const [activeCategory, setActiveCategory] = useState<Category>("Todas");
+  const [activeTabId, setActiveTabId] = useState(DEFAULT_HOME_TAB_ID);
   const [loading, setLoading] = useState(true);
   const [allProperties, setAllProperties] = useState<Property[]>([]);
   const [visibleProperties, setVisibleProperties] = useState<Property[]>([]);
@@ -100,17 +91,16 @@ export default function Home() {
 
   useEffect(() => {
     const filtered = allProperties.filter((property) => {
-      const categoryMatches = activeCategory === "Todas" || property.category === activeCategory;
       const queryMatches =
         normalizedQuery.length === 0 ||
         property.title.toLowerCase().includes(normalizedQuery) ||
         property.location.toLowerCase().includes(normalizedQuery);
 
-      return categoryMatches && queryMatches;
+      return queryMatches;
     });
 
     setVisibleProperties(filtered);
-  }, [activeCategory, normalizedQuery, allProperties]);
+  }, [normalizedQuery, allProperties]);
 
   const catalogSearchHref = useMemo(() => {
     const params = new URLSearchParams();
@@ -120,21 +110,20 @@ export default function Home() {
       params.set("query", trimmedQuery);
     }
 
-    if (activeCategory !== "Todas") {
-      params.set("category", activeCategory);
-    }
-
     const queryString = params.toString();
     return queryString.length > 0 ? `/catalog?${queryString}` : "/catalog";
-  }, [searchValue, activeCategory]);
+  }, [searchValue]);
 
   return (
     <div className="min-h-screen bg-zinc-50 text-zinc-900">
-      <Header query={searchValue} onQueryChange={setSearchValue} searchHref={catalogSearchHref} />
-      <CategoryFilters
-        categories={categories}
-        activeCategory={activeCategory}
-        onSelect={setActiveCategory}
+      <Header
+        query={searchValue}
+        onQueryChange={setSearchValue}
+        searchHref={catalogSearchHref}
+        mode="home"
+        tabs={HOME_HEADER_TABS}
+        activeTabId={activeTabId}
+        onTabChange={setActiveTabId}
       />
 
       <main>

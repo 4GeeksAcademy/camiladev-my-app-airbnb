@@ -11,6 +11,7 @@ import { RoomHeader } from "@/app/components/room/room-header";
 import { RoomDetail } from "@/app/components/room/types";
 import { Footer } from "@/app/components/home/footer";
 import { Header } from "@/app/components/home/header";
+import { DEFAULT_HOME_TAB_ID, HOME_HEADER_TABS } from "@/app/components/home/home-header-tabs";
 
 const roomsSeed: RoomDetail[] = [
   {
@@ -77,6 +78,7 @@ export default function RoomDetailPage() {
   }, [params]);
 
   const [searchQuery, setSearchQuery] = useState("");
+  const [activeTabId, setActiveTabId] = useState(DEFAULT_HOME_TAB_ID);
   const [loading, setLoading] = useState(true);
   const [room, setRoom] = useState<RoomDetail | null>(null);
 
@@ -124,7 +126,15 @@ export default function RoomDetailPage() {
 
   return (
     <div className="min-h-screen bg-zinc-50 text-zinc-900">
-      <Header query={searchQuery} onQueryChange={setSearchQuery} searchHref={catalogSearchHref} />
+      <Header
+        query={searchQuery}
+        onQueryChange={setSearchQuery}
+        searchHref={catalogSearchHref}
+        mode="home"
+        tabs={HOME_HEADER_TABS}
+        activeTabId={activeTabId}
+        onTabChange={setActiveTabId}
+      />
 
       <main className="mx-auto w-full max-w-6xl px-4 pb-28 pt-6 sm:px-6">
         <div className="mb-4">

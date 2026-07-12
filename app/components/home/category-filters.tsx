@@ -1,42 +1,48 @@
-import { Category } from "./types";
-
-interface CategoryFiltersProps {
-  categories: Category[];
-  activeCategory: Category;
-  onSelect: (category: Category) => void;
+export interface HeaderTab {
+  id: string;
+  label: string;
+  icon: string;
+  isNew?: boolean;
 }
 
-const categoryIcon: Record<Category, string> = {
-  Todas: "T",
-  Playa: "P",
-  Mansiones: "M",
-  Tendencias: "Td",
-  Cabanas: "C",
-  Campo: "Ca",
-};
+interface CategoryFiltersProps {
+  tabs: HeaderTab[];
+  activeTabId: string;
+  onSelect: (tabId: string) => void;
+  className?: string;
+}
 
-export const CategoryFilters = ({ categories, activeCategory, onSelect }: CategoryFiltersProps) => {
+export const CategoryFilters = ({ tabs, activeTabId, onSelect, className }: CategoryFiltersProps) => {
   return (
-    <div className="border-b border-zinc-100 bg-white">
-      <div className="mx-auto flex w-full max-w-6xl gap-2 overflow-x-auto px-4 py-3 sm:px-6">
-        {categories.map((category) => {
-          const isActive = category === activeCategory;
+    <div className={className}>
+      <div className="mx-auto flex w-full max-w-6xl gap-6 overflow-x-auto px-4 py-3 md:justify-center md:gap-10 md:px-6">
+        {tabs.map((tab) => {
+          const isActive = tab.id === activeTabId;
 
           return (
             <button
-              key={category}
+              key={tab.id}
               type="button"
-              onClick={() => onSelect(category)}
-              className={`inline-flex shrink-0 items-center gap-2 rounded-full border px-3 py-2 text-sm transition ${
-                isActive
-                  ? "border-zinc-900 bg-zinc-900 text-white"
-                  : "border-zinc-200 bg-white text-zinc-700 hover:border-zinc-300"
-              }`}
+              onClick={() => onSelect(tab.id)}
+              className="relative shrink-0 text-zinc-600"
             >
-              <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-zinc-100 px-1 text-[10px] font-semibold text-zinc-700">
-                {categoryIcon[category]}
-              </span>
-              {category}
+              <div className="flex flex-col items-center gap-1">
+                <div className="relative text-[34px] leading-none md:text-[42px]">{tab.icon}</div>
+                {tab.isNew ? (
+                  <span className="absolute -right-5 top-0 rounded-full bg-slate-700 px-1.5 py-0.5 text-[10px] font-bold uppercase text-white">
+                    Nuevo
+                  </span>
+                ) : null}
+                <span className={`text-sm font-medium ${isActive ? "text-zinc-900" : "text-zinc-600"}`}>
+                  {tab.label}
+                </span>
+              </div>
+              <span
+                className={`mt-1 block h-0.5 w-full rounded-full ${
+                  isActive ? "bg-zinc-900" : "bg-transparent"
+                }`}
+                aria-hidden="true"
+              />
             </button>
           );
         })}

@@ -7,6 +7,7 @@ import { FilterBar } from "@/app/components/catalog/filter-bar";
 import { PropertyList } from "@/app/components/catalog/property-list";
 import { ResultsHeader } from "@/app/components/catalog/results-header";
 import { StickyMap } from "@/app/components/catalog/sticky-map";
+import { DEFAULT_HOME_TAB_ID, HOME_HEADER_TABS } from "@/app/components/home/home-header-tabs";
 import { Footer } from "@/app/components/home/footer";
 import { Header } from "@/app/components/home/header";
 import { Category, Property } from "@/app/components/home/types";
@@ -92,6 +93,7 @@ export const CatalogClient = () => {
   const selectedCategory: Category = isCategory(urlCategory) ? urlCategory : "Todas";
 
   const [query, setQuery] = useState(urlQuery);
+  const [activeTabId, setActiveTabId] = useState(DEFAULT_HOME_TAB_ID);
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
   const [activeFilters, setActiveFilters] = useState<string[]>([]);
 
@@ -150,7 +152,15 @@ export const CatalogClient = () => {
 
   return (
     <div className="min-h-screen bg-zinc-50 text-zinc-900">
-      <Header query={query} onQueryChange={setQuery} searchHref={searchHref} />
+      <Header
+        query={query}
+        onQueryChange={setQuery}
+        searchHref={searchHref}
+        mode="home"
+        tabs={HOME_HEADER_TABS}
+        activeTabId={activeTabId}
+        onTabChange={setActiveTabId}
+      />
 
       <main className="mx-auto w-full max-w-6xl px-4 pb-28 pt-4 sm:px-6">
         <div className="space-y-4">

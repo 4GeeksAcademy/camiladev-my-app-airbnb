@@ -1,55 +1,73 @@
 import { Logo } from "./logo";
 import { SearchBar } from "./search-bar";
-import { IconButton } from "./icon-button";
+import { CategoryFilters, HeaderTab } from "./category-filters";
+import { DesktopSearchBar } from "./desktop-search-bar";
+import { HeaderDesktopActions } from "./header-desktop-actions";
+import { HeaderMobileContent } from "./header-mobile-content";
 
 interface HeaderProps {
   query: string;
   onQueryChange: (value: string) => void;
   onSearch?: () => void;
   searchHref?: string;
+  mode?: "default" | "home";
+  tabs?: HeaderTab[];
+  activeTabId?: string;
+  onTabChange?: (tabId: string) => void;
 }
 
-export const Header = ({ query, onQueryChange, onSearch, searchHref }: HeaderProps) => {
-  return (
-    <header className="sticky top-0 z-20 border-b border-zinc-100 bg-white/95 backdrop-blur">
-      <div className="mx-auto flex w-full max-w-6xl items-center gap-3 px-4 py-3 sm:px-6">
-        <Logo />
-        <div className="flex-1">
-          <SearchBar
-            value={query}
-            onChange={onQueryChange}
-            onSearch={onSearch}
-            searchHref={searchHref}
-          />
-        </div>
-        <div className="hidden items-center gap-2 sm:flex">
-          <IconButton label="Seleccionar idioma">
-            <svg
-              className="h-4 w-4"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              aria-hidden="true"
-            >
-              <circle cx="12" cy="12" r="9" />
-              <path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18" />
-            </svg>
-          </IconButton>
+export const Header = ({
+  query,
+  onQueryChange,
+  onSearch,
+  searchHref,
+  mode = "default",
+  tabs = [],
+  activeTabId,
+  onTabChange,
+}: HeaderProps) => {
+  const showHomeHeader = mode === "home";
 
-          <IconButton label="Menu de usuario">
-            <svg
-              className="h-4 w-4"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              aria-hidden="true"
-            >
-              <path d="M4 7h16M4 12h16M4 17h16" />
-            </svg>
-          </IconButton>
+  return (
+    <header className="sticky top-0 z-20 border-b border-zinc-100 bg-[#f8f8f8]">
+      <div className="mx-auto w-full max-w-6xl px-4 pt-3 sm:px-6">
+        <HeaderMobileContent
+          query={query}
+          onQueryChange={onQueryChange}
+          onSearch={onSearch}
+          searchHref={searchHref}
+          showHomeHeader={showHomeHeader}
+          tabs={tabs}
+          activeTabId={activeTabId}
+          onTabChange={onTabChange}
+        />
+
+        <div className="hidden items-center justify-between py-3 md:flex">
+          <Logo />
+          {showHomeHeader && tabs.length > 0 && activeTabId && onTabChange ? (
+            <CategoryFilters
+              tabs={tabs}
+              activeTabId={activeTabId}
+              onSelect={onTabChange}
+              className="flex-1"
+            />
+          ) : (
+            <div className="mx-10 flex-1">
+              <SearchBar
+                value={query}
+                onChange={onQueryChange}
+                onSearch={onSearch}
+                searchHref={searchHref}
+              />
+            </div>
+          )}
+
+          <HeaderDesktopActions showHostText={showHomeHeader} />
         </div>
+
+        {showHomeHeader ? (
+          <DesktopSearchBar query={query} onQueryChange={onQueryChange} searchHref={searchHref} />
+        ) : null}
       </div>
     </header>
   );
