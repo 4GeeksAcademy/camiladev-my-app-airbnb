@@ -1,0 +1,135 @@
+import { Property } from "@/app/components/home/types";
+import { RoomDetail } from "@/app/components/room/types";
+
+export const PROPERTIES: Property[] = [
+  {
+    id: "1",
+    title: "Departamento en Piriapolis",
+    location: "Piriapolis, Maldonado",
+    category: "Playa",
+    imageSrc: "/images/properties/piriapolis-depto.jpg",
+    pricePerNight: 3178,
+    rating: 4.84,
+    imageLabel: "1 / 8",
+    badge: "Favorito entre huespedes",
+  },
+  {
+    id: "2",
+    title: "Cabaña en Sauce de Portezuelo",
+    location: "Punta Ballena, Maldonado",
+    category: "Cabanas",
+    imageSrc: "/images/properties/sauce-cabana.jpg",
+    pricePerNight: 1986,
+    rating: 5.0,
+    imageLabel: "1 / 6",
+  },
+  {
+    id: "3",
+    title: "Casa con jacuzzi en barrio residencial",
+    location: "Piriapolis, Uruguay",
+    category: "Tendencias",
+    imageSrc: "/images/properties/jacuzzi-casa.jpg",
+    pricePerNight: 2339,
+    rating: 4.53,
+    imageLabel: "1 / 16",
+  },
+  {
+    id: "4",
+    title: "Mansión frente al mar con terraza",
+    location: "Punta del Este, Maldonado",
+    category: "Mansiones",
+    imageSrc: "/images/properties/mansion-mar.jpg",
+    pricePerNight: 9240,
+    rating: 4.9,
+    imageLabel: "1 / 12",
+    badge: "Nuevo",
+  },
+  {
+    id: "5",
+    title: "Casa de campo con fogón y vista abierta",
+    location: "Sierra de las Animas",
+    category: "Campo",
+    imageSrc: "/images/properties/campo-fogon.jpg",
+    pricePerNight: 2860,
+    rating: 4.78,
+    imageLabel: "1 / 7",
+  },
+  {
+    id: "6",
+    title: "Loft de playa a metros de la rambla",
+    location: "Piriapolis Centro",
+    category: "Playa",
+    imageSrc: "/images/properties/loft-rambla.jpg",
+    pricePerNight: 2640,
+    rating: 4.71,
+    imageLabel: "1 / 10",
+  },
+];
+
+const ROOM_IMAGES: Record<string, string[]> = {
+  "1": [
+    "/images/properties/piriapolis-depto.jpg",
+    "/images/properties/loft-rambla.jpg",
+    "/images/properties/mansion-mar.jpg",
+    "/images/properties/sauce-cabana.jpg",
+    "/images/properties/campo-fogon.jpg",
+  ],
+  "2": [
+    "/images/properties/sauce-cabana.jpg",
+    "/images/properties/campo-fogon.jpg",
+    "/images/properties/piriapolis-depto.jpg",
+    "/images/properties/jacuzzi-casa.jpg",
+    "/images/properties/loft-rambla.jpg",
+  ],
+  "3": [
+    "/images/properties/jacuzzi-casa.jpg",
+    "/images/properties/campo-fogon.jpg",
+    "/images/properties/loft-rambla.jpg",
+    "/images/properties/piriapolis-depto.jpg",
+    "/images/properties/sauce-cabana.jpg",
+  ],
+  "4": [
+    "/images/properties/mansion-mar.jpg",
+    "/images/properties/loft-rambla.jpg",
+    "/images/properties/piriapolis-depto.jpg",
+    "/images/properties/sauce-cabana.jpg",
+    "/images/properties/campo-fogon.jpg",
+  ],
+  "5": [
+    "/images/properties/campo-fogon.jpg",
+    "/images/properties/sauce-cabana.jpg",
+    "/images/properties/piriapolis-depto.jpg",
+    "/images/properties/loft-rambla.jpg",
+    "/images/properties/jacuzzi-casa.jpg",
+  ],
+  "6": [
+    "/images/properties/loft-rambla.jpg",
+    "/images/properties/piriapolis-depto.jpg",
+    "/images/properties/mansion-mar.jpg",
+    "/images/properties/sauce-cabana.jpg",
+    "/images/properties/campo-fogon.jpg",
+  ],
+};
+
+const DEFAULT_AMENITIES = [
+  { id: "wifi", label: "Wifi", icon: "📶" },
+  { id: "cocina", label: "Cocina", icon: "🍳" },
+  { id: "parking", label: "Estacionamiento", icon: "🚗" },
+  { id: "aa", label: "Aire acondicionado", icon: "❄️" },
+];
+
+export const ROOMS: RoomDetail[] = PROPERTIES.map((property, index) => ({
+  id: property.id,
+  title: property.title,
+  location: property.location,
+  rating: property.rating,
+  reviews: 18 + index * 4,
+  hostName: ["Luis Eduardo", "Lorena", "Sofia", "Martin", "Camila", "Nicolas"][index],
+  hostYears: 3 + (index % 4),
+  pricePerNight: property.pricePerNight,
+  images: ROOM_IMAGES[property.id] ?? [property.imageSrc],
+  amenities: DEFAULT_AMENITIES.map((item, amenityIndex) => ({
+    ...item,
+    id: `${property.id}-${amenityIndex + 1}`,
+  })),
+}));

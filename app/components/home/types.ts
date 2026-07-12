@@ -11,6 +11,7 @@ export interface Property {
   title: string;
   location: string;
   category: Exclude<Category, "Todas">;
+  imageSrc: string;
   pricePerNight: number;
   rating: number;
   imageLabel: string;

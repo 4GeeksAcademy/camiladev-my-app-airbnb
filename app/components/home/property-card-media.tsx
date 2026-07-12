@@ -4,10 +4,27 @@ interface PropertyCardMediaProps {
   property: Property;
 }
 
+const toWebpSrcSet = (src: string) => {
+  const base = src.replace(/\.(jpg|jpeg|png)$/i, "");
+  return `${base}-480.webp 480w, ${base}-768.webp 768w, ${base}-1200.webp 1200w`;
+};
+
 export const PropertyCardMedia = ({ property }: PropertyCardMediaProps) => {
   return (
     <div className="relative overflow-hidden rounded-2xl bg-zinc-200">
-      <div className="aspect-[4/3] w-full bg-gradient-to-br from-zinc-200 via-zinc-300 to-zinc-200" />
+      <picture>
+        <source
+          type="image/webp"
+          srcSet={toWebpSrcSet(property.imageSrc)}
+          sizes="(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw"
+        />
+        <img
+          src={property.imageSrc}
+          alt={property.title}
+          className="aspect-[4/3] w-full object-cover"
+          loading="lazy"
+        />
+      </picture>
 
       <div className="absolute left-2 top-2 rounded-full bg-white/95 px-2.5 py-1 text-xs font-medium text-zinc-700">
         {property.badge ?? "Alojamiento"}

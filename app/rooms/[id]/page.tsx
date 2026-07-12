@@ -12,62 +12,7 @@ import { RoomDetail } from "@/app/components/room/types";
 import { Footer } from "@/app/components/home/footer";
 import { Header } from "@/app/components/home/header";
 import { DEFAULT_HOME_TAB_ID, HOME_HEADER_TABS } from "@/app/components/home/home-header-tabs";
-
-const roomsSeed: RoomDetail[] = [
-  {
-    id: "1",
-    title: "Departamento con vista al mar en Piriapolis",
-    location: "Piriapolis, Maldonado",
-    rating: 4.84,
-    reviews: 19,
-    hostName: "Luis Eduardo",
-    hostYears: 4,
-    pricePerNight: 3178,
-    images: ["Foto principal", "Sala", "Dormitorio", "Vista exterior", "Patio"],
-    amenities: [
-      { id: "a1", label: "Wifi", icon: "📶" },
-      { id: "a2", label: "Cocina", icon: "🍳" },
-      { id: "a3", label: "Estacionamiento", icon: "🚗" },
-      { id: "a4", label: "Piscina", icon: "🏊" },
-      { id: "a5", label: "Aire acondicionado", icon: "❄️" },
-      { id: "a6", label: "Lavadora", icon: "🧺" },
-    ],
-  },
-  {
-    id: "cat-1",
-    title: "Departamento en Piriapolis",
-    location: "Piriapolis, Maldonado",
-    rating: 4.84,
-    reviews: 32,
-    hostName: "Lorena",
-    hostYears: 6,
-    pricePerNight: 3178,
-    images: ["Frente", "Living", "Cocina", "Habitación", "Terraza"],
-    amenities: [
-      { id: "b1", label: "Wifi", icon: "📶" },
-      { id: "b2", label: "Jacuzzi", icon: "🛁" },
-      { id: "b3", label: "Parrilla", icon: "🔥" },
-      { id: "b4", label: "TV", icon: "📺" },
-    ],
-  },
-  {
-    id: "cat-3",
-    title: "Casa con jacuzzi techado en barrio residencial",
-    location: "Piriapolis, Uruguay",
-    rating: 4.53,
-    reviews: 19,
-    hostName: "Luis Eduardo",
-    hostYears: 5,
-    pricePerNight: 2339,
-    images: ["Jacuzzi", "Sala de estar", "Dormitorio principal", "Patio", "Cocina"],
-    amenities: [
-      { id: "c1", label: "Jacuzzi", icon: "🛁" },
-      { id: "c2", label: "Wifi", icon: "📶" },
-      { id: "c3", label: "Aire acondicionado", icon: "❄️" },
-      { id: "c4", label: "TV", icon: "📺" },
-    ],
-  },
-];
+import { ROOMS } from "@/app/components/home/properties-data";
 
 export default function RoomDetailPage() {
   const params = useParams<{ id: string }>();
@@ -94,29 +39,9 @@ export default function RoomDetailPage() {
     setRoom(null);
 
     const timer = setTimeout(() => {
-      const found = roomsSeed.find((candidate) => candidate.id === roomId);
+      const found = ROOMS.find((candidate) => candidate.id === roomId);
 
-      if (found) {
-        setRoom(found);
-      } else {
-        setRoom({
-          id: roomId,
-          title: `Habitación ${roomId}`,
-          location: "Piriapolis, Uruguay",
-          rating: 4.6,
-          reviews: 12,
-          hostName: "Anfitrión local",
-          hostYears: 3,
-          pricePerNight: 2500,
-          images: ["Foto principal", "Comedor", "Dormitorio", "Baño"],
-          amenities: [
-            { id: "d1", label: "Wifi", icon: "📶" },
-            { id: "d2", label: "Cocina", icon: "🍳" },
-            { id: "d3", label: "Calefacción", icon: "🔥" },
-            { id: "d4", label: "Parking", icon: "🚗" },
-          ],
-        });
-      }
+      setRoom(found ?? null);
 
       setLoading(false);
     }, 1000);
@@ -169,7 +94,11 @@ export default function RoomDetailPage() {
               <BookingCard pricePerNight={room.pricePerNight} />
             </div>
           </section>
-        ) : null}
+        ) : (
+          <div className="rounded-2xl border border-zinc-200 bg-white px-4 py-8 text-center text-sm text-zinc-600">
+            No encontramos esta propiedad. Vuelve al catalogo para elegir otro alojamiento.
+          </div>
+        )}
       </main>
 
       <Footer />

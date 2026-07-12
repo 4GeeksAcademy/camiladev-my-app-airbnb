@@ -8,6 +8,7 @@ import { PropertyList } from "@/app/components/catalog/property-list";
 import { ResultsHeader } from "@/app/components/catalog/results-header";
 import { StickyMap } from "@/app/components/catalog/sticky-map";
 import { DEFAULT_HOME_TAB_ID, HOME_HEADER_TABS } from "@/app/components/home/home-header-tabs";
+import { PROPERTIES } from "@/app/components/home/properties-data";
 import { Footer } from "@/app/components/home/footer";
 import { Header } from "@/app/components/home/header";
 import { Category, Property } from "@/app/components/home/types";
@@ -26,64 +27,7 @@ const isCategory = (value: string | null): value is Category => {
   return value !== null && categoryOptions.includes(value as Category);
 };
 
-const catalogProperties: Property[] = [
-  {
-    id: "cat-1",
-    title: "Departamento en Piriapolis",
-    location: "Piriapolis, Maldonado",
-    category: "Playa",
-    pricePerNight: 3178,
-    rating: 4.84,
-    imageLabel: "1 / 8",
-    badge: "Favorito entre huespedes",
-  },
-  {
-    id: "cat-2",
-    title: "Cabana en Sauce de Portezuelo",
-    location: "Punta Ballena, Maldonado",
-    category: "Cabanas",
-    pricePerNight: 1986,
-    rating: 5.0,
-    imageLabel: "1 / 6",
-  },
-  {
-    id: "cat-3",
-    title: "Casa con jacuzzi techado",
-    location: "Piriapolis, Uruguay",
-    category: "Tendencias",
-    pricePerNight: 2339,
-    rating: 4.53,
-    imageLabel: "1 / 16",
-  },
-  {
-    id: "cat-4",
-    title: "Mansion frente al mar",
-    location: "Punta del Este, Maldonado",
-    category: "Mansiones",
-    pricePerNight: 9240,
-    rating: 4.9,
-    imageLabel: "1 / 12",
-    badge: "Nuevo",
-  },
-  {
-    id: "cat-5",
-    title: "Casa de campo con fogon",
-    location: "Sierra de las Animas",
-    category: "Campo",
-    pricePerNight: 2860,
-    rating: 4.78,
-    imageLabel: "1 / 7",
-  },
-  {
-    id: "cat-6",
-    title: "Loft de playa a metros de la rambla",
-    location: "Piriapolis Centro",
-    category: "Playa",
-    pricePerNight: 2640,
-    rating: 4.71,
-    imageLabel: "1 / 10",
-  },
-];
+const catalogProperties: Property[] = PROPERTIES;
 
 export const CatalogClient = () => {
   const searchParams = useSearchParams();

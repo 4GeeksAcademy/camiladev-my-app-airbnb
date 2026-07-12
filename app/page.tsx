@@ -4,67 +4,9 @@ import { useEffect, useMemo, useState } from "react";
 import { Footer } from "./components/home/footer";
 import { Header } from "./components/home/header";
 import { DEFAULT_HOME_TAB_ID, HOME_HEADER_TABS } from "./components/home/home-header-tabs";
+import { PROPERTIES } from "./components/home/properties-data";
 import { RecommendationsSection } from "./components/home/recommendations-section";
 import { Property } from "./components/home/types";
-
-const seedProperties: Property[] = [
-  {
-    id: "1",
-    title: "Departamento en Piriapolis",
-    location: "Piriapolis, Maldonado",
-    category: "Playa",
-    pricePerNight: 3178,
-    rating: 4.84,
-    imageLabel: "1 / 8",
-    badge: "Favorito entre huespedes",
-  },
-  {
-    id: "2",
-    title: "Cabana en Sauce de Portezuelo",
-    location: "Punta Ballena, Maldonado",
-    category: "Cabanas",
-    pricePerNight: 1986,
-    rating: 5.0,
-    imageLabel: "1 / 6",
-  },
-  {
-    id: "3",
-    title: "Casa con jacuzzi en barrio residencial",
-    location: "Piriapolis, Uruguay",
-    category: "Tendencias",
-    pricePerNight: 2339,
-    rating: 4.53,
-    imageLabel: "1 / 16",
-  },
-  {
-    id: "4",
-    title: "Mansion frente al mar con terraza",
-    location: "Punta del Este, Maldonado",
-    category: "Mansiones",
-    pricePerNight: 9240,
-    rating: 4.9,
-    imageLabel: "1 / 12",
-    badge: "Nuevo",
-  },
-  {
-    id: "5",
-    title: "Casa de campo con fogon y vista abierta",
-    location: "Sierra de las Animas",
-    category: "Campo",
-    pricePerNight: 2860,
-    rating: 4.78,
-    imageLabel: "1 / 7",
-  },
-  {
-    id: "6",
-    title: "Loft de playa a metros de la rambla",
-    location: "Piriapolis Centro",
-    category: "Playa",
-    pricePerNight: 2640,
-    rating: 4.71,
-    imageLabel: "1 / 10",
-  },
-];
 
 export default function Home() {
   const [searchValue, setSearchValue] = useState("");
@@ -79,8 +21,8 @@ export default function Home() {
     setVisibleProperties([]);
 
     const timer = setTimeout(() => {
-      setAllProperties(seedProperties);
-      setVisibleProperties(seedProperties);
+      setAllProperties(PROPERTIES);
+      setVisibleProperties(PROPERTIES);
       setLoading(false);
     }, 1000);
 
