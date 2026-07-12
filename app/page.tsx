@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { useRouter } from "next/navigation";
 import { CategoryFilters } from "./components/home/category-filters";
 import { Footer } from "./components/home/footer";
 import { Header } from "./components/home/header";
@@ -77,7 +76,6 @@ const seedProperties: Property[] = [
 ];
 
 export default function Home() {
-  const router = useRouter();
   const [searchValue, setSearchValue] = useState("");
   const [activeCategory, setActiveCategory] = useState<Category>("Todas");
   const [loading, setLoading] = useState(true);
@@ -114,7 +112,7 @@ export default function Home() {
     setVisibleProperties(filtered);
   }, [activeCategory, normalizedQuery, allProperties]);
 
-  const handleGoToCatalog = () => {
+  const catalogSearchHref = useMemo(() => {
     const params = new URLSearchParams();
     const trimmedQuery = searchValue.trim();
 
@@ -127,25 +125,12 @@ export default function Home() {
     }
 
     const queryString = params.toString();
-    router.push(queryString.length > 0 ? `/catalog?${queryString}` : "/catalog");
-  };
-
-  const handlePropertyClick = (property: Property) => {
-    const params = new URLSearchParams();
-    const trimmedQuery = searchValue.trim();
-
-    if (trimmedQuery.length > 0) {
-      params.set("query", trimmedQuery);
-    }
-
-    params.set("category", property.category);
-
-    router.push(`/catalog?${params.toString()}`);
-  };
+    return queryString.length > 0 ? `/catalog?${queryString}` : "/catalog";
+  }, [searchValue, activeCategory]);
 
   return (
     <div className="min-h-screen bg-zinc-50 text-zinc-900">
-      <Header query={searchValue} onQueryChange={setSearchValue} onSearch={handleGoToCatalog} />
+      <Header query={searchValue} onQueryChange={setSearchValue} searchHref={catalogSearchHref} />
       <CategoryFilters
         categories={categories}
         activeCategory={activeCategory}
@@ -160,7 +145,7 @@ export default function Home() {
             </div>
           </section>
         ) : (
-          <RecommendationsSection properties={visibleProperties} onPropertyClick={handlePropertyClick} />
+          <RecommendationsSection properties={visibleProperties} />
         )}
       </main>
 

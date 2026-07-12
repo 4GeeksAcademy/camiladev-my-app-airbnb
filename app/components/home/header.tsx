@@ -6,6 +6,7 @@ interface HeaderProps {
   query: string;
   onQueryChange: (value: string) => void;
   onSearch?: () => void;
+  searchHref?: string;
 }
 
 function IconButton({ children, label }: { children: ReactNode; label: string }) {
@@ -20,13 +21,18 @@ function IconButton({ children, label }: { children: ReactNode; label: string })
   );
 }
 
-export function Header({ query, onQueryChange, onSearch }: HeaderProps) {
+export function Header({ query, onQueryChange, onSearch, searchHref }: HeaderProps) {
   return (
     <header className="sticky top-0 z-20 border-b border-zinc-100 bg-white/95 backdrop-blur">
       <div className="mx-auto flex w-full max-w-6xl items-center gap-3 px-4 py-3 sm:px-6">
         <Logo />
         <div className="flex-1">
-          <SearchBar value={query} onChange={onQueryChange} onSearch={onSearch} />
+          <SearchBar
+            value={query}
+            onChange={onQueryChange}
+            onSearch={onSearch}
+            searchHref={searchHref}
+          />
         </div>
         <div className="hidden items-center gap-2 sm:flex">
           <IconButton label="Seleccionar idioma">

@@ -17,7 +17,7 @@ export function PropertyList({ properties }: PropertyListProps) {
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
       {properties.map((property) => (
-        <PropertyCard key={property.id} property={property} />
+        <PropertyCard key={property.id} property={property} href={`/rooms/${property.id}`} />
       ))}
     </div>
   );

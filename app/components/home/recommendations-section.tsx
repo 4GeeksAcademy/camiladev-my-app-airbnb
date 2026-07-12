@@ -3,10 +3,9 @@ import { PropertyCard } from "./property-card";
 
 interface RecommendationsSectionProps {
   properties: Property[];
-  onPropertyClick?: (property: Property) => void;
 }
 
-export function RecommendationsSection({ properties, onPropertyClick }: RecommendationsSectionProps) {
+export function RecommendationsSection({ properties }: RecommendationsSectionProps) {
   return (
     <section className="mx-auto w-full max-w-6xl px-4 pb-28 pt-6 sm:px-6">
       <div className="mb-4 flex items-center justify-between">
@@ -32,7 +31,7 @@ export function RecommendationsSection({ properties, onPropertyClick }: Recommen
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {properties.map((property) => (
-          <PropertyCard key={property.id} property={property} onClick={onPropertyClick} />
+          <PropertyCard key={property.id} property={property} href={`/rooms/${property.id}`} />
         ))}
       </div>
     </section>

@@ -1,12 +1,14 @@
 import type { FormEvent } from "react";
+import Link from "next/link";
 
 interface SearchBarProps {
   value: string;
   onChange: (value: string) => void;
   onSearch?: () => void;
+  searchHref?: string;
 }
 
-export function SearchBar({ value, onChange, onSearch }: SearchBarProps) {
+export function SearchBar({ value, onChange, onSearch, searchHref }: SearchBarProps) {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     onSearch?.();
@@ -37,23 +39,43 @@ export function SearchBar({ value, onChange, onSearch }: SearchBarProps) {
         aria-label="Buscar alojamientos"
       />
 
-      <button
-        type="submit"
-        className="ml-2 inline-flex h-8 w-8 items-center justify-center rounded-full bg-rose-600 text-white"
-        aria-label="Buscar"
-      >
-        <svg
-          className="h-4 w-4"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          aria-hidden="true"
+      {searchHref ? (
+        <Link
+          href={searchHref}
+          className="ml-2 inline-flex h-8 w-8 items-center justify-center rounded-full bg-rose-600 text-white"
+          aria-label="Buscar"
         >
-          <circle cx="11" cy="11" r="7" />
-          <path d="m20 20-3.5-3.5" />
-        </svg>
-      </button>
+          <svg
+            className="h-4 w-4"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            aria-hidden="true"
+          >
+            <circle cx="11" cy="11" r="7" />
+            <path d="m20 20-3.5-3.5" />
+          </svg>
+        </Link>
+      ) : (
+        <button
+          type="submit"
+          className="ml-2 inline-flex h-8 w-8 items-center justify-center rounded-full bg-rose-600 text-white"
+          aria-label="Buscar"
+        >
+          <svg
+            className="h-4 w-4"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            aria-hidden="true"
+          >
+            <circle cx="11" cy="11" r="7" />
+            <path d="m20 20-3.5-3.5" />
+          </svg>
+        </button>
+      )}
     </form>
   );
 }
