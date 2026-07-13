@@ -104,16 +104,17 @@ export const CatalogClient = () => {
         tabs={HOME_HEADER_TABS}
         activeTabId={activeTabId}
         onTabChange={setActiveTabId}
-      />
-
-      <main className="mx-auto w-full max-w-6xl px-4 pb-28 pt-4 sm:px-6">
-        <div className="space-y-4">
+        bottomContent={
           <FilterBar
             filters={filterOptions}
             activeFilters={activeFilters}
             onToggleFilter={handleToggleFilter}
           />
+        }
+      />
 
+      <main className="mx-auto w-full max-w-none px-4 pb-28 pt-4 sm:px-6">
+        <div className="space-y-4">
           <ResultsHeader
             count={visibleProperties.length}
             sortOrder={sortOrder}
@@ -152,8 +153,8 @@ export const CatalogClient = () => {
             })}
           </div>
 
-          <section className="grid grid-cols-1 gap-4 lg:grid-cols-3">
-            <div className="lg:col-span-2">
+          <section className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+            <div>
               <PropertyList properties={visibleProperties} />
             </div>
             <div>

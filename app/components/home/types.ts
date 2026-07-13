@@ -6,6 +6,11 @@ export type Category =
   | "Cabanas"
   | "Campo";
 
+export interface PropertyCoordinates {
+  lat: number;
+  lng: number;
+}
+
 export interface Property {
   id: string;
   title: string;
@@ -15,6 +20,7 @@ export interface Property {
   pricePerNight: number;
   rating: number;
   imageLabel: string;
+  coordinates: PropertyCoordinates;
   badge?: string;
   isFavorite?: boolean;
 }

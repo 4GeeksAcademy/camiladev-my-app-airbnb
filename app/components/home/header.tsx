@@ -4,6 +4,7 @@ import { CategoryFilters, HeaderTab } from "./category-filters";
 import { DesktopSearchBar } from "./desktop-search-bar";
 import { HeaderDesktopActions } from "./header-desktop-actions";
 import { HeaderMobileContent } from "./header-mobile-content";
+import { ReactNode } from "react";
 
 interface HeaderProps {
   query: string;
@@ -14,6 +15,7 @@ interface HeaderProps {
   tabs?: HeaderTab[];
   activeTabId?: string;
   onTabChange?: (tabId: string) => void;
+  bottomContent?: ReactNode;
 }
 
 export const Header = ({
@@ -25,6 +27,7 @@ export const Header = ({
   tabs = [],
   activeTabId,
   onTabChange,
+  bottomContent,
 }: HeaderProps) => {
   const showHomeHeader = mode === "home";
 
@@ -68,6 +71,8 @@ export const Header = ({
         {showHomeHeader ? (
           <DesktopSearchBar query={query} onQueryChange={onQueryChange} searchHref={searchHref} />
         ) : null}
+
+        {bottomContent ? <div className="pb-3">{bottomContent}</div> : null}
       </div>
     </header>
   );

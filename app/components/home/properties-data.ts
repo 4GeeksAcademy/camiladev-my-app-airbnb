@@ -11,6 +11,7 @@ export const PROPERTIES: Property[] = [
     pricePerNight: 3178,
     rating: 4.84,
     imageLabel: "1 / 8",
+    coordinates: { lat: -34.8628, lng: -55.2743 },
     badge: "Favorito entre huespedes",
   },
   {
@@ -22,6 +23,7 @@ export const PROPERTIES: Property[] = [
     pricePerNight: 1986,
     rating: 5.0,
     imageLabel: "1 / 6",
+    coordinates: { lat: -34.8793, lng: -55.1182 },
   },
   {
     id: "3",
@@ -32,6 +34,7 @@ export const PROPERTIES: Property[] = [
     pricePerNight: 2339,
     rating: 4.53,
     imageLabel: "1 / 16",
+    coordinates: { lat: -34.8776, lng: -55.2758 },
   },
   {
     id: "4",
@@ -42,6 +45,7 @@ export const PROPERTIES: Property[] = [
     pricePerNight: 9240,
     rating: 4.9,
     imageLabel: "1 / 12",
+    coordinates: { lat: -34.959, lng: -54.946 },
     badge: "Nuevo",
   },
   {
@@ -53,6 +57,7 @@ export const PROPERTIES: Property[] = [
     pricePerNight: 2860,
     rating: 4.78,
     imageLabel: "1 / 7",
+    coordinates: { lat: -34.7937, lng: -55.3255 },
   },
   {
     id: "6",
@@ -63,6 +68,7 @@ export const PROPERTIES: Property[] = [
     pricePerNight: 2640,
     rating: 4.71,
     imageLabel: "1 / 10",
+    coordinates: { lat: -34.8655, lng: -55.2698 },
   },
 ];
 
